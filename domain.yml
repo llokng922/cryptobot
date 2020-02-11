@@ -1,3 +1,9 @@
+# The domain is the world of your chatbot. It contains everything the chatbot should know, including:
+
+# All the actions it is capable of doing
+# The intents it should understand
+# The template of all the utterances it should tell the user, and much more
+
 intents:
   - greet
   - goodbye
