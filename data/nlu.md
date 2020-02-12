@@ -28,7 +28,7 @@
 - how to buy [bitcoin](bitcoin)
 - how to sell [bitcoin](bitcoin)
 
-## intent: bitcoin_open_high_low_close (how to identify date?)
+## intent: bitcoin_open_high_low_close
 - what is the price of [bitcoin](bitcoin) on dd/mm/yyyy
 - [bitcoin](bitcoin) price 20th Jan 2018
 - [bitcoin](bitcoin) volume on dd/mm/yy
@@ -158,32 +158,6 @@
 - why were you made?
 - you are made by who?
 - you are working for which company?
-
-## intent: canthelp
-- I think you cant help me
-- and that's it?
-- and you call yourself bot company? pff
-- do you get anything?
-- exit
-- exit now
-- hey, you promised to contact me, but nobody did, I really need to finish that car insurance bot!!!!
-- hm i don't think you can do what i want
-- i guess you can't help me then
-- nothing else?
-- ok i guess you can't help me
-- ok then you cant help me
-- ok, but that doesnt help me
-- stop
-- stop go back
-- stop this conversation
-- that was shit, you're not helping
-- that's not what i want
-- this conversation is not really helpful
-- this is leading to nothing
-- you can't help me
-- you can't help me with what i need
-- you cannot help me with what I want
-- you cant help me
 
 ## intent: thank
 - Cool. Thanks
