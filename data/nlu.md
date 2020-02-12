@@ -1,56 +1,56 @@
 ## intent: bitcoin_description
-- what is [bitcoin](bitcoin)
-- [bitcoin](bitcoin) basic info
-- describe [bitcoin](bitcoin)
-- how does [bitcoin](bitcoin) work?
-- tell me about [bitcoin](bitcoin)
-- what's [bitcoin](bitcoin)
-- tell me what is [bitcoin](bitcoin)
-- I wanna know what is [bitcoin](bitcoin)
+- what is [bitcoin](crypto)
+- [bitcoin](crypto) basic info
+- describe [bitcoin](crypto)
+- how does [bitcoin](crypto) work?
+- tell me about [bitcoin](crypto)
+- what's [bitcoin](crypto)
+- tell me what is [bitcoin](crypto)
+- I wanna know what is [bitcoin](crypto)
 
 ## intent: bitcoin_price
-- what is the price of [bitcoin](bitcoin)
-- how much is [bitcoin](bitcoin)
-- [bitcoin](bitcoin) price
-- [bitcoin](bitcoin) price
+- what is the price of [bitcoin](crypto)
+- how much is [bitcoin](crypto)
+- [bitcoin](crypto) price
+- [bitcoin](crypto) price
 
 ## intent: bitcoin_features
-- how special is [bitcoin](bitcoin)
-- features of [bitcoin](bitcoin)
-- [bitcoin](bitcoin) details
-- I want to know about [bitcoin](bitcoin)
-- please tell me about [bitcoin](bitcoin)
-- elaborate on [bitcoin](bitcoin)
+- how special is [bitcoin](crypto)
+- features of [bitcoin](crypto)
+- [bitcoin](crypto) details
+- I want to know about [bitcoin](crypto)
+- please tell me about [bitcoin](crypto)
+- elaborate on [bitcoin](crypto)
 
 ## intent: bitcoin_exchange
-- where can I buy [bitcoin](bitcoin)
-- where can I sell [bitcoin](bitcoin)
-- how to buy [bitcoin](bitcoin)
-- how to sell [bitcoin](bitcoin)
+- where can I buy [bitcoin](crypto)
+- where can I sell [bitcoin](crypto)
+- how to buy [bitcoin](crypto)
+- how to sell [bitcoin](crypto)
 
 ## intent: bitcoin_open_high_low_close
-- what is the price of [bitcoin](bitcoin) on dd/mm/yyyy
-- [bitcoin](bitcoin) price 20th Jan 2018
-- [bitcoin](bitcoin) volume on dd/mm/yy
-- how much is [bitcoin](bitcoin) now
+- what is the price of [bitcoin](crypto) on dd/mm/yyyy
+- [bitcoin](crypto) price 20th Jan 2018
+- [bitcoin](crypto) volume on dd/mm/yy
+- how much is [bitcoin](crypto) now
 
 ## intent: bitcoin_rank
-- market rank of [bitcoin](bitcoin)
-- rank of [bitcoin](bitcoin) 
-- what is the rank of [bitcoin](bitcoin)?
-- position of [bitcoin](bitcoin)
-- standing of [bitcoin](bitcoin)
+- market rank of [bitcoin](crypto)
+- rank of [bitcoin](crypto) 
+- what is the rank of [bitcoin](crypto)?
+- position of [bitcoin](crypto)
+- standing of [bitcoin](crypto)
 
 ## intent: bitcoin_marketcap
-- what is the marketcap of [bitcoin](bitcoin)?
-- [bitcoin](bitcoin) marketcap
-- [bitcoin](bitcoin) market capitalization
+- what is the marketcap of [bitcoin](crypto)?
+- [bitcoin](crypto) marketcap
+- [bitcoin](crypto) market capitalization
 
 ## intent: bitcoin_create
-- who invent [bitcoin](bitcoin)?
-- who made [bitcoin](bitcoin)?
-- who create [bitcoin](bitcoin)?
-- who is the creator of [bitcoin](bitcoin)?
+- who invent [bitcoin](crypto)?
+- who made [bitcoin](crypto)?
+- who create [bitcoin](crypto)?
+- who is the creator of [bitcoin](crypto)?
 
 ## intent: builder
 - By whom were you built?
@@ -1012,10 +1012,11 @@
 - tlak to you later
 - toodle-oo
 
-## synonym:btc
+## synonym:bitcoin
 - bitcoin
 - BTC
 - btc
 - bitcoins
 - BITCOIN
+- Bitcoin
 
