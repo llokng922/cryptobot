@@ -1,31 +1,55 @@
-## happy path
+## greet
 * greet
   - utter_greet
-* mood_great
-  - utter_happy
 
-## sad path 1
-* greet
-  - utter_greet
-* mood_unhappy
-  - utter_cheer_up
-  - utter_did_that_help
-* affirm
-  - utter_happy
+## bye1
+* bye
+  - utter_bye
 
-## sad path 2
-* greet
-  - utter_greet
-* mood_unhappy
-  - utter_cheer_up
-  - utter_did_that_help
-* deny
-  - utter_goodbye
+## thank
+* thank
+  - utter_thank
 
-## say goodbye
-* goodbye
-  - utter_goodbye
+## bitcoin_all
+* bitcoin_price{"crypto": "bitcoin"}
+  - retrieval_bitcoin_price
+* bitcoin_open_high_low_close{"crypto": "bitcoin"}
+  - utter_bitcoin_open_high_low_close
+* bitcoin_description{"crypto": "bitcoin"}
+  - utter_bitcoin_description
+* bitcoin_features{"crypto": "bitcoin"}
+  - utter_bitcoin_features
+* bitcoin_create{"crypto": "bitcoin"}
+  - utter_bitcoin_create
+* bitcoin_rank{"crypto": "bitcoin"}
+  - utter_bitcoin_rank
+* bitcoin_marketcap{"crypto": "bitcoin"}
+  - utter_bitcoin_marketcap
 
-## bot challenge
-* bot_challenge
-  - utter_iamabot
+## bitcoin_price
+* bitcoin_price{"crypto": "bitcoin"}
+  - retrieval_bitcoin_price
+* bitcoin_open_high_low_close{"crypto": "bitcoin"}
+  - utter_bitcoin_open_high_low_close
+
+## bitcoin_feat_description
+* bitcoin_description{"crypto": "bitcoin"}
+  - utter_bitcoin_description
+* bitcoin_features{"crypto": "bitcoin"}
+  - utter_bitcoin_features
+
+## bitcoin_other
+* bitcoin_create{"crypto": "bitcoin"}
+  - utter_bitcoin_create
+* bitcoin_rank{"crypto": "bitcoin"}
+  - utter_bitcoin_rank
+* bitcoin_marketcap{"crypto": "bitcoin"}
+  - utter_bitcoin_marketcap
+
+## bitcoin_price
+* bitcoin_price{"crypto": "bitcoin"} OR bitcoin_open_high_low_close{"crypto": "bitcoin"}
+  - utter_bitcoin_open_high_low_close
+
+## deny
+* canthelp
+  - utter_canthelp
