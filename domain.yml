@@ -1,39 +1,76 @@
 intents:
+  - bitcoin_description
+  - bitcoin_price
+  - bitcoin_features
+  - bitcoin_exchange
+  - bitcoin_open_high_low_close
+  - bitcoin_rank
+  - bitcoin_marketcap
+  - bitcoin_create
+  - builder
+  - thank
+  - react_positive
   - greet
-  - goodbye
+  - canthelp
+  - out_of_scope
   - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - bye
+
+entities:
+  - bitcoin
 
 actions:
-- utter_greet
-- utter_cheer_up
-- utter_did_that_help
-- utter_happy
-- utter_goodbye
-- utter_iamabot
+ - utter_bitcoin_description
+ - utter_bitcoin_price
+ - utter_bitcoin_features
+ - utter_bitcoin_exchange
+ - utter_bitcoin_open_high_low_close
+ - utter_bitcoin_rank
+ - utter_bitcoin_marketcap
+ - utter_bitcoin_create
+ - utter_builder
+ - utter_thank
+ - utter_react_positive
+ - utter_greet
+ - utter_canthelp
+ - utter_out_of_scope
+ - utter_affirm
+ - utter_bye
+
 
 responses:
+  utter_bitcoin_description:
+  - text: "Bitcoin (BTC) is a consensus network that enables a new payment system and a completely digital currency. Powered by its users, it is a peer to peer payment network that requires no central authority to operate. On October 31st, 2008, an individual or group of individuals operating under the pseudonym 'Satoshi Nakamoto' published the Bitcoin Whitepaper and described it as: 'a purely peer-to-peer version of electronic cash, which would allow online payments to be sent directly from one party to another without going through a financial institution.'"
+  utter_bitcoin_price:
+  - text: "refer to pandas dataframe"
+  utter_bitcoin_features:
+  - text: "1. Bitcoin (BTC) is a digital currency, which is used and distributed electronically. Bitcoin is a decentralised peer-to-peer network"
+  utter_bitcoin_exchange:
+  - text: "Coindesk"
+  utter_bitcoin_open_high_low_close:
+  - text: "10000 USD"
+  utter_bitcoin_rank:
+  - text: "If ranked by marketcap 1. Bitcoin 2. Ethereum 3. Ripple 4. Bitcoin Cash"
+  utter_bitcoin_marketcap:
+  - text: "For realtime market cap, please refer to https://coinmarketcap.com/"
+  utter_bitcoin_create:
+  - text: "Bitcoin was create by satoshi nakamoto"
+  utter_builder:
+  - text: "I was created by Anthony, Lok, Ethan and James"
+  utter_thank:
+  - text: "You are more than welcome!"
+  utter_react_positive:
+  - text: "Good for you"
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "Hello! I am CryptoBot :) How may I help you today?"
+  utter_canthelp:
+  - text: "Sorry I am unable to help you."
+  utter_out_of_scope:
+  - text: "Sorry I don't understand your question. Please rephase so I can learn."
+  utter_affirm:
+  - text: "Thanks!"
+  utter_bye:
+  - text: "Goodbye! It was nice talking to you."
 
 session_config:
   session_expiration_time: 60
