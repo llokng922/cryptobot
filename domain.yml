@@ -1,18 +1,24 @@
-# The domain is the world of your chatbot. It contains everything the chatbot should know, including:
-
-# All the actions it is capable of doing
-# The intents it should understand
-# The template of all the utterances it should tell the user, and much more..
- 
 intents:
-  - bitcoin_description
-  - bitcoin_price
-  - bitcoin_features
-  - bitcoin_exchange
-  - bitcoin_open_high_low_close
-  - bitcoin_rank
-  - bitcoin_marketcap
-  - bitcoin_create
+  - price 
+# Crypto Prices:
+  - crypto_price
+  - crypto_historical_price
+# Crypto Market Performance:
+  - crypto_marketcap
+  - crypto_volume
+  - crypto_percent_change_1h
+  - crypto_percent_change_24h
+  - highest_trade_volume
+  - lowest_trade_volume
+  - crypto_highest_profit
+  - crypto_lowest_profit
+# Crypto General Details:
+  - crypto_coin_symbol
+  - crypto_description
+  - crypto_feature
+  - crypto_rank
+  - crypto_creator
+# Conversational:
   - builder
   - thank
   - react_positive
@@ -26,42 +32,45 @@ entities:
   - crypto
   - date
 
+slots:
+  crypto:
+    type: categorical
+    values:
+      - btc
+      - eth
+      - xrp
+      - bch
+
+forms:
+ - crypto_form
+
 actions:
- - utter_bitcoin_description
- - retrieval_bitcoin_price
- - utter_bitcoin_features
- - utter_bitcoin_exchange
- - utter_bitcoin_open_high_low_close
- - utter_bitcoin_rank
- - utter_bitcoin_marketcap
- - utter_bitcoin_create
- - utter_builder
+ - action_query_price
+ - action_query_price_date
+ - action_query_marketcap
+ - action_query_volume
+ - action_query_percent_change_24h
+ - action_query_percent_change_1h
+ - action_crypto_highest_trade_volume
+ - action_crypto_lowest_trade_volume
+ - action_crypto_lowest_profit
+ - action_crypto_highest_profit
+ - action_query_coin_symbol
+ - action_query_description
+ - action_query_feature
+ - action_query_rank
+ - action_query_creator
  - utter_thank
- - utter_react_positive
  - utter_greet
  - utter_canthelp
- - utter_out_of_scope
- - utter_affirm
  - utter_bye
 
 
 responses:
-  utter_bitcoin_description:
-  - text: "Bitcoin (BTC) is a consensus network that enables a new payment system and a completely digital currency. Powered by its users, it is a peer to peer payment network that requires no central authority to operate. On October 31st, 2008, an individual or group of individuals operating under the pseudonym 'Satoshi Nakamoto' published the Bitcoin Whitepaper and described it as: 'a purely peer-to-peer version of electronic cash, which would allow online payments to be sent directly from one party to another without going through a financial institution.'"
-  retrieval_bitcoin_price:
-  - text: "refer to pandas dataframe"
-  utter_bitcoin_features:
-  - text: "1. Bitcoin (BTC) is a digital currency, which is used and distributed electronically. Bitcoin is a decentralised peer-to-peer network"
-  utter_bitcoin_exchange:
-  - text: "Coindesk"
-  utter_bitcoin_open_high_low_close:
-  - text: "10000 USD"
-  utter_bitcoin_rank:
-  - text: "If ranked by marketcap 1. Bitcoin 2. Ethereum 3. Ripple 4. Bitcoin Cash"
-  utter_bitcoin_marketcap:
-  - text: "For realtime market cap, please refer to https://coinmarketcap.com/"
-  utter_bitcoin_create:
-  - text: "Bitcoin was create by satoshi nakamoto"
+  utter_bot_intro:
+  - text: "If you are new to cryptocurrency, I can help you get started."
+  utter_bot_function:
+  - text: "We could provide info such as historical price, current price, technology of the main cryptocurrencies"
   utter_builder:
   - text: "I was created by Anthony, Lok, Ethan and James"
   utter_thank:
@@ -78,6 +87,8 @@ responses:
   - text: "Thanks!"
   utter_bye:
   - text: "Goodbye! It was nice talking to you."
+  utter_ask_crypto:
+  - text: "Which cryptocurrency are we referring?"
 
 session_config:
   session_expiration_time: 60

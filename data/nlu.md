@@ -1,56 +1,388 @@
-## intent: bitcoin_description
-- what is [bitcoin](crypto)
-- [bitcoin](crypto) basic info
-- describe [bitcoin](crypto)
-- how does [bitcoin](crypto) work?
-- tell me about [bitcoin](crypto)
-- what's [bitcoin](crypto)
-- tell me what is [bitcoin](crypto)
-- I wanna know what is [bitcoin](crypto)
+<!-- Task Oriented: -->
 
-## intent: bitcoin_price
-- what is the price of [bitcoin](crypto)
-- how much is [bitcoin](crypto)
-- [bitcoin](crypto) price
-- [bitcoin](crypto) price
+<!-- Specifying Crypto: -->
 
-## intent: bitcoin_features
-- how special is [bitcoin](crypto)
-- features of [bitcoin](crypto)
-- [bitcoin](crypto) details
-- I want to know about [bitcoin](crypto)
-- please tell me about [bitcoin](crypto)
+## intent: request_crypto
+- Can you please lookup [ripple](crypto)?
+- I would like to know more about [BTC](crypto)?
+- Are you referring to BTC/ETH/XRP/BCH?
+- I like to choose [ethereum](crypto)
+- I am looking for [btc](crypto)
+- Find me information on [bitcoin cash](crypto)?
+- I am looking for [btc](crypto)
+- I'd like to check out [Bch](crypto)
+- I 'm looking for [eth](crypto).
+- I would like to know more about [btc](crypto).
+- I like information on [Bitcoin Cash](crypto)
+
+<!-- Crypto Prices: -->
+
+## intent: crypto_price
+- Tell [Bitcoin Cash](crypto) current price 
+- what is the price of the [eth](crypto)?
+- How much does [btc](crypto) cost?
+- How much is [Bitcoin Cash](crypto)?
+- [ripple](crypto) current price
+- [BTC](crypto) price
+- Tell me [btc](crypto)
+- What is the price of the [bitcoins](crypto)
+- How much does [ethereum](crypto) cost?
+- How much is [xrp](crypto)?
+- [Ethereum](crypto) price. Thanks
+- What's the [btc](crypto) price?
+- Tell me the current price of [ETH](crypto)
+- Let me know the price of [Bitcoin Cash](crypto)
+- How much does each [ripple](crypto) cost?
+- [Ethereum](crypto) price thanks
+- [bitcoin cash](crypto)'s current price
+- [Ethereum](crypto) price please
+- Let me know [bitcoin](crypto) the cost
+- How much does each [ripple](crypto) cost?
+- Current [ripple](crypto) price?
+- How much is [Bitcoin](crypto)?
+- Tell me the current price
+- I want to know the current price
+- Tell me the current price
+- Give me the current pricefor this crypto
+- Current price please
+- What's the current price
+- What is the current price
+- Tell me about current price
+- Quote me the current price
+- What is the current price?
+
+## intent: crypto_historical_price 
+- What is [ripple](crypto) on [2016-08-12](date)?
+- I want to know the [Bitcoin](crypto) on [2016-08-12](date)?
+- Give me the price of [Bitcoin](crypto) on [2017-06-12](date)?
+- Price of crypto on [2016-05-10](date)?
+- The price of [ethereum](crypto) on [2019-06-10](date)?
+- [eth](crypto) price on [2016-04-15](date)?
+- I wanna know [BCH](crypto) price on [2018-06-10](date)?
+- Gimme [btc](crypto) price on [2016-05-10](date)?
+- What is the price of [XRP](crypto) on [2018-06-08](date)?
+- Whats the history price of [bitcoin](crypto)  on [2017-06-10](date)?
+- I want to know the price [bitcoin](crypto) on [2016-12-03](date)
+- I want to know the of [ripple](crypto) yesterday.
+- Give me [btc](crypto) ytd price.
+- What's the historical price of [BTC](crypto) on[2016-06-08](date)?
+- What is historical price for this crypto on [2016-06-08](date)
+- What is price for this coin on [2017-08-02](date)
+- Tell me the price for this crypto on [2018-05-09](date)
+- Give me the price of it on [2016-08-12](date)
+- Price of it on [2018-10-22](date)
+
+<!-- Crypto Market Performance: -->
+
+## intent: crypto_marketcap
+- What is the marketcap of [Bitcoin](crypto)?
+- Tell me [Ethereum](crypto) marketcap. 
+- Let me know [BTC](crypto)'s marketcap
+- Give me [ripple](crypto) marketcap
+- I want to know the marketcap of [bcash](crypto).
+- Find me the marketcap of [Bitcoin](crypto)
+Find me the marketcap of [eth](crypto)
+- Provide me with [XRP](crypto) marketcap
+- What's [bitcoins](crypto) marketcap?
+- Marketcap of [bitcoin cash](crypto)
+- Please tell me the marketcap of [BITCOIN](crypto)
+- Give me the marketcap of [xrp](crypto).
+- Tell me the marketcap of [btc](crypto)
+- Tell me the marketcap 
+- I want to know the marketcap
+- Tell me the marketcap
+- Give me the marketcap for this crypto
+- Marketcap please
+- What's the marketcap?
+- How big is the marketcap
+- Tell me about the marketcap 
+
+## intent: crypto_volume
+- Let me [bitcoins](crypto) volume
+- Volume of [ETH](crypto)
+- [xrp](crypto) volume thanks
+- Tell me [BITCOIN](crypto) volume of it 
+- Tell me [ripple](crypto) volume
+- Trading volume of [ETH](crypto) please
+- Give me [bitcoin](crypto) general volume
+- I want to know [ripple](crypto) volumne
+- What is the volume of [Bitcoin](crypto)?
+- I want to know the volume of [xrp](crypto)
+- Let me know the volume of [btc](crypto)
+- Tell me the volume 
+- I want to know the trading volume
+- Tell me the normal volume 
+- Give me the volume
+- Volume please
+- What's the volume?
+- How big is the volume?
+- Tell me about the general volume
+
+## intent: crypto_percent_change_1h
+- What is the percentage change of [btc](crypto) in this hour?
+- What is [btc](crypto) % change the last hour?
+- Tell me [Ethereum](crypto) change in percentage the last hour?
+- What is [Eth](crypto) % change of in 1 hr?
+- What is the percentage change of [Bitcoin](crypto) in the last hour?
+- % change of [ripple](crypto) within the last hour?
+- May I know the % change of [Ethereum](crypto) the last hour?
+- Inform me the latest [bitcoins](crypto) % change of in one hour?
+- Give me [Ripple](crypto) % change in one hour
+- I want to know [Ethereum](crypto) % change the last hour
+- Hourly % change of [ripple](crypto)
+- Tell me the % [bitcoin cash](crypto) of it in last hour
+- Change of the [Bitcoin](crypto) in the last hour
+- What is the percentage change last hour
+- % change of the crypto in the hour
+- Percentage change of it in the last hour
+- Give me the % change in the last hour
+- I want to know the % change in 1 hour
+- 1 hours % change 
+- Tell me the percentage change in 1 hour
+
+## intent: crypto_percent_change_24h
+- Percentage change of [Bitcoin](crypto) in the last 24 hours?
+- What is [Bitcoin](crypto) % change the last day?
+- Tell me the change in percentage of [Ethereum](crypto)yesterday.    
+- % change of [ETH](crypto) yesterday?
+- Percentage change of [ethereum](crypto) within the last day?
+- May I know [Bitcoin](crypto) percentage change?
+- Latest % change of [ripple](crypto) yesterday
+- I want to know change in [XRP](crypto) ytd
+- Give me the [bitcoin cash](crypto) change in % ytd
+- Last [eth](crypto) 24hr % change
+- % change of [ethereum](crypto) yesterday thanks
+- 24h % change of [bitcoin](crypto) please
+- [XRP](crypto) % change yesterday
+- % change of [ripple](crypto) in the last 24 hours
+- I wanna know [BCH](crypto) 24 hours percentage change.
+- What is the percentage change last 24 hours
+- % change of the crypto in the last 24 hours
+- Percentage change of it in the last day
+- Give me the % change in the last 24 hours
+- I want to know the % change in 24 hrs
+- 24 hours % change 
+- Tell me the percentage change yesterday
+
+## intent: highest_trade_volume
+- Let me know the highest trading volume
+- Highest trading volume right now 
+- highest trading volume now thanks
+- Tell me the highest trading volume of the cryptocurrencies
+- Which crypto has the highest trading volume
+- Trading volume highest please
+- Give me the most trading volume of cryptocurrency
+- I want to know the highest trading volume by which cryptocurrency
+- What is the highest trading volume of any crypto
+- I want to know the most trading volume 
+- highest trading volume crypto currently
+- what is the highest trade volume by crypto
+- how big is the trading volume in the crypto market
+- Let me know highest trading volume
+- Highest trading volume 
+- highest trading volume thanks
+- Tell me the highest trading volume of 
+- Tell me the highest transcation volume 
+- highest trading volume please
+- Give me highest trading volume
+- I want to know the top trading volume of 
+- What is the highest trading volume of
+- I want to know highest trading volume of 
+- Gimme the highest trading volume
+- Tell me the highest trading volume
+- Highest trading volume for this crypto
+- What is the highest trade volume for it
+- Highest trade volume for the coin 
+
+## intent: lowest_trade_volume
+- Let me know the lowest trading volume
+- Lowest trading volume right now 
+- Lowest trading volume now thanks
+- Tell me the lowest trading volume of the cryptocurrencies
+- Which crypto has the lowest trading volume
+- Trading volume lowest please
+- Give me the most trading volume of cryptocurrency
+- I want to know the lowest trading volume by which cryptocurrency
+- What is the lowest trading volume of any crypto
+- I want to know the most trading volume 
+- lowest trading volume crypto currently
+- what is the lowest trade volume by crypto
+- how small is the trading volume in the crypto market 
+- Let me know lowest trading volume
+- Lowest trading volume of 
+- lowest trading volume thanks
+- Tell me the lowest trading volume 
+- Tell me the lowest trading volume of 
+- lowest trading volume please
+- Give me lowest trading volume
+- I want to know the lowest trading volume 
+- What is the low trading volume 
+- I want to know lowest trading volume 
+- Give me the lowest trading volume
+- Tell me the lowest trading volume
+- Lowest trading volume for this crypto
+- What is the lowest trade volume for it
+- Lowest trade volume for the coin
+
+## intent: crypto_highest_profit
+- [bitcoin](crypto) highest profit
+- highest profit [bitcoin](crypto)
+- most profit by [bitcoin](crypto)
+- what is the most profit by [bitcoin](crypto)
+- [bitcoin](crypto) return value of most profittable day
+- [bitcoin](crypto) return value of highest profittable day
+- i wanna know the highest return value of [bitcoin](crypto)
+- Whats the date of [BTC](crypto) highest return?
+- Tell me when [btc](crypto) has the most return?
+- Highest return of [ethereum](crpyto)
+- Most return date for [btc](crypto)
+- Highest return date [bitcoin](crpyto) thanks
+- Tell me the most return date for [bitcoin](crypto) 
+- Tell me the highest return of [Ripple](crypto)
+- [Bitcoin](crypto) highest return
+- Give me [ripple](crypto) most return
+- I want to know the highest return of [bch](crypto)
+- What is the highest return of [bitcoin cash](crypto)
+- I want to know highest return of [bitcoin](crypto)
+- Give me the [btc](crypto) highest return
+- Let me know the date of highest return of [bch](crypto)
+- I want to know the highest return of this crypto
+- Highest return date
+- Give me the highest return date
+- Lowest return of the coin
+- Lowest return of the crypto
+
+## intent: crypto_lowest_profit
+- [bitcoin](crypto) lowest profit
+- lowest profit [bitcoin](crypto)
+- least profit by [bitcoin](crypto)
+- what is the least profit by [bitcoin](crypto)
+- [bitcoin](crypto) return value of least profittable day
+- [bitcoin](crypto) return value of lowest profittable day
+- i wanna know the lowest return value of [bitcoin](crypto)
+- Whats the date of [BTC](crypto) lowest return?
+- I want the lowest return date of [bitcoin](crpyto)
+- Tell me when [btc](crypto) has the least return?
+- Lowest return of [ethereum](crpyto)
+- Least return date for [btc](crypto)
+- Lowest return [bitcoin](crpyto) thanks
+- Tell me the least return date for [bitcoin](crypto)
+- Tell me the lowest return of [Ripple](crypto)
+- [Bitcoin](crypto) lowest return
+- Give me [ripple](crypto) least return
+- I want to know the least return of [bch](crypto)
+- What is the lowest return of [bitcoin cash](crypto)
+- I want to know highest return of [bitcoin](crypto)
+- Give me the [btc](crypto) highest return
+- Let me know the date of highest return of [bch](crypto)
+- I want to know the lowest return of this crypto
+- Lowest return date
+- Which date las the lowest return?
+- Give me the lowest return date
+- Lowest return of the coin
+- Lowest return of the crypto
+
+<!-- Crypto General Details: -->
+
+## intent: crypto_coin_symbol
+- What is [bitcoin](crypto) symbol?
+- Tell me coin symbol for [BTC](crypto)
+- What is the coin symbol for [bitcoin](crypto)
+- I wanna know the coin symbol for [bitcoin cash](crypto)
+- [Ripple](crypto) symbol please
+- Give me [bitcoin cash](crypto) coin symbol
+- Coin symbol for [Ethereum](crypto)
+- [bitcoin](crypto) symbol please
+- Short form for [bitcoin cash](crypto)
+- [Ripple](crypto) symbol please
+- [bitcoin](crypto) Coin symbol
+- [ripple](crypto) coin symbol
+- What is the symbol for this crypto
+- What is the symbol for this coin
+- Coin symbol for it
+- Give me the coin symbol
+
+## intent: crypto_description
+- What is [bitcoin](crypto)?
+- Give me basic info on [ETH](crypto) 
+- Tell me all about [Bitcoin](crypto)
+- Brief intro about [XRP](crypto) 
+- Introduce me to [eth](crypto)
+- Lemme know about [btc](crypto)
+- [ETHEREUM](crypto) introduction
+- Introduce [ripple](crypto)
+- describe [Bch](crypto)
+- How does [XRP](crypto) work?
+- Tell me about [Bitcoin cash](crypto)
+- What's [bitcoin cash](crypto)
+- Tell me what is [BITCOIN CASH](crypto)
+- I wanna know what is [bch](crypto)
+- Describe the crypto
+- Tell me about the coin
+- Whats the coin all about
+- Basic crypto info 
+- Whats the crypto about?
+- [bitcoin](crypto)
+
+## intent: crypto_features
+- How special is [bitcoin](crypto)?
+- What are the features of [bch](crypto)?
+- Features of [ripple](crypto)
+- Features of [eth](crypto)
+- [XRP](crypto) details
+- Tell me more about [bitcoin](crypto)
+- Explain [bitcoin](crypto)
 - elaborate on [bitcoin](crypto)
+- [eth](crypto) more information
+- what are the characteristics of [bch](crypto)?
+- Properties of [ethereum]
+- detail explanation of [bitcoin cash](crypto)
+- What features does it have
+- Show me the features
+- General features of the crypto
+- Features for this crypto
+- Features for this coin
+- What is the crypto feature?
 
-## intent: bitcoin_exchange
-- where can I buy [bitcoin](crypto)
-- where can I sell [bitcoin](crypto)
-- how to buy [bitcoin](crypto)
-- how to sell [bitcoin](crypto)
-
-## intent: bitcoin_open_high_low_close
-- what is the price of [bitcoin](crypto) on dd/mm/yyyy
-- [bitcoin](crypto) price 20th Jan 2018
-- [bitcoin](crypto) volume on dd/mm/yy
-- how much is [bitcoin](crypto) now
-
-## intent: bitcoin_rank
-- market rank of [bitcoin](crypto)
+## intent: crypto_rank
+- market rank of [eth](crypto)
 - rank of [bitcoin](crypto) 
-- what is the rank of [bitcoin](crypto)?
-- position of [bitcoin](crypto)
-- standing of [bitcoin](crypto)
+- what is the rank of [btc](crypto)?
+- position of [XRP](crypto)
+- standing of [bitcoin cash](crypto)
+- [BTC](crypto) rank 
+- [Ethereum] market position
+- tell me the rank of [bitcoin](crypto)
+- I want to know the rank of [ethereum](crypto)
+- What is the rank?
+- Give me the crypto rank
+- Show me the rank 
+- Let me see the rank
 
-## intent: bitcoin_marketcap
-- what is the marketcap of [bitcoin](crypto)?
-- [bitcoin](crypto) marketcap
-- [bitcoin](crypto) market capitalization
+## intent: crypto_creator
+- Who invent [bitcoin](crypto)
+- who made [btc](crypto)
+- who create [BTC](crypto)
+- who is the creator of [bitcoin](crypto)
+- Who is the person who built [eth](crypto)
+- i want to know who invented [ethereum](crypto)
+- please tell me the company who created [ETH](crypto)
+- Can I ask the name of the people who designed [XRP](crypto)
+- May I ask who invented [Ripple](crypto)
+- Name the person who built [ripple](crypto)
+- Tell me the name of the person who built [bitcoin cash](crypto)
+- Tell me who built [bitcoin cash](crypto)
+- Who is the person responsible for building [bitcoin cash](crypto)
+- Who created [BCH](crypto)
+- [bitcoin cash](crypto) are made by who?
+- Who created you?
+- Who investned you?
+- Creator of this crypto
+- Creator of the coin
+- Creator of the crypto
+- What created you?
 
-## intent: bitcoin_create
-- who invent [bitcoin](crypto)?
-- who made [bitcoin](crypto)?
-- who create [bitcoin](crypto)?
-- who is the creator of [bitcoin](crypto)?
+<!-- Conversational: -->
 
 ## intent: builder
 - By whom were you built?
@@ -198,10 +530,7 @@
 - thx
 - yes thanks
 
-
-
 ## intent: react_positive
-- :)
 - :D
 - HAHA
 - I am happy
@@ -506,7 +835,6 @@
 - are you human ?
 - are you russian?
 - are you sick
-- are you using Rasa [Core](product) and [NLU](product) ?
 - are you vegan
 - better than you
 - book a ticket
@@ -970,7 +1298,6 @@
 - yup
 - yyeeeh
 
-
 ## intent: bye
 - Bye
 - Bye bye
@@ -1012,11 +1339,33 @@
 - tlak to you later
 - toodle-oo
 
-## synonym:bitcoin
+<!-- Synonyms: -->
+## synonym:btc
 - bitcoin
 - BTC
 - btc
 - bitcoins
 - BITCOIN
 - Bitcoin
+- BITCOIN (BTC)
 
+## synonym:eth
+- ETH
+- Eth
+- Ethereum
+- ETHEREUM
+
+## synonym:xrp
+- Ripple
+- ripple
+- XRP
+
+## synonym:bch
+- bitcoin cash
+- bcash
+- Bitcoin Cash
+- BITCOIN CASH
+
+<!-- Regex Date Entity Extractor: -->
+## regex: date
+- \d{4}-\d{2}-\d{2}

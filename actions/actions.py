@@ -4,109 +4,365 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/core/actions/#custom-actions/
 
-
-# This is a simple example for a custom action which utters "Hello World!"
+from typing import Text, Any, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.forms import FormAction
+from rasa.core.events import FollowupAction
 
 import pandas as pd 
+import datetime
+import re
+from colorama import Fore
 
-from typing import Text, Any, Dict, List
-from rasa_core_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+import json
 
-# def get_entity_type(tracker: Tracker) -> Text:
-#      """
-#      Get the entity type mentioned by the user. As the user may speak of an
-#      entity type in plural, we need to map the mentioned entity type to the
-#      type used in the knowledge base.
-#      :param tracker: tracker
-#      :return: entity type (same type as used in the knowledge base)
-#      """
-#      graph_database = GraphDatabase()
-#      entity_type = tracker.get_slot("entity_type")
-#      graph_database.map("entity-type-mapping", entity_type)
-#      return entity_type
+# Call Coin Market API
+def market_cap_api():
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+    parameters = {
+        'start':'1',
+        'limit':'100',
+        'convert':'USD',
+        'cryptocurrency_type':'coins'
+        }
+    headers = {'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': 'd973daba-2bf3-4dfc-8868-0a4a42b43d82',
+    }
+    session = Session()
+    session.headers.update(headers)
+    try:
+        response = session.get(url, params=parameters)
+        return json.loads(response.text)    
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        print(e)
 
-# def get_attribute(tracker: Tracker) -> Text:
-#     """
-#     Get the attribute mentioned by the user. As the user may use a synonym for
-#     an attribute, we need to map the mentioned attribute to the
-#     attribute name used in the knowledge base.
-#     :param tracker: tracker
-#     :return: attribute (same type as used in the knowledge base)
-#     """
-# #    graph_database = GraphDatabase()
-#     attribute = tracker.get_slot("attribute")
-# #    graph_database.map("attribute-mapping", attribute)
-    
-#     return attribute
+# Get price of cryptos from API
+def get_price(data,crypto):
+    symbol = crypto.upper()
+    for query in data['data']:
+        if query['symbol']==symbol:
+            return query['quote']['USD']['price'],query['quote']['USD']['last_updated']
 
-# def get_entity_name(tracker: Tracker, entity_type: Text) -> Text:
-#     """
-#     Get the name of the entity the user referred to. Either the NER detected the
-#     entity and stored its name in the corresponding slot or the user referred to
-#     the entity by an ordinal number, such as first or last, or the user refers to
-#     an entity by its attributes.
-#     :param tracker: Tracker
-#     :param entity_type: the entity type
-#     :return: the name of the actual entity (value of key attribute in the knowledge base)
-#     """
+# Get marketcap of cryptos from API
+def get_marketcap(data,crypto):
+    symbol = crypto.upper()
+    for query in data['data']:
+        if query['symbol'] == symbol:
+            return query['quote']['USD']['market_cap'],query['quote']['USD']['last_updated']
 
-#     # user referred to an entity by an ordinal number
-# #    mention = tracker.get_slot("mention")
-# #    if mention is not None:
-# #        return resolve_mention(tracker)
+# Get volume of cryptos from API
+def get_volume(data,crypto):
+    symbol = crypto.upper()
+    for query in data['data']:
+        if query['symbol'] == symbol:
+            return query['quote']['USD']['volume_24h'],query['quote']['USD']['last_updated']
 
-#     # user named the entity
-#     entity_name = tracker.get_slot(entity_type)
-#     if entity_name:
-#         return entity_name
+# NEW - Get all crypto's trading volume in a dictionary from API
+def cryptotradingvolume(data):
+    symbol = ['BTC','BCH','XRP','ETH']
+    return {symbols:float(query['quote']['USD']['volume_24h']) for symbols in symbol for query in data['data'] if symbols == query['symbol']}
 
-#     user referred to an entity by its attributes
-#    listed_items = tracker.get_slot("listed_items")
-#    attributes = get_attributes_of_entity(entity_type, tracker)
+# Get percent change 1h of cryptos from API
+def get_percentchange1h(data,crypto):
+    symbol = crypto.upper()
+    for query in data['data']:
+        if query['symbol'] == symbol:
+            return query['quote']['USD']['percent_change_1h'],query['quote']['USD']['last_updated']
 
-#    if listed_items and attributes:
-        # filter the listed_items by the set attributes
-#        graph_database = GraphDatabase()
-#        for entity in listed_items:
-#            key_attr = schema[entity_type]["key"]
-#            result = graph_database.validate_entity(
-#                entity_type, entity, key_attr, attributes
-#            )
-#            if result is not None:
-#                return to_str(result, key_attr)
+# Get percent change 24h of cryptos from API
+def get_percentchange24h(data,crypto):
+    symbol = crypto.upper()
+    for query in data['data']:
+        if query['symbol'] == symbol:
+            return query['quote']['USD']['percent_change_24h'],query['quote']['USD']['last_updated']
 
-#    return None
-
-def pandasclean(csv):
-    df = pd.read_csv('cryptodata/'+ csv +'usd.csv',usecols=[1,2,3,4,5],parse_dates=['Date'])
+# Load crypto csvs into df
+def csvtopandas(crypto):
+    df = pd.read_csv('cryptodata/'+ crypto +'usd.csv',usecols=[1,2,3,4,5],parse_dates=['Date'])
     df = df.set_index('Date').sort_index(ascending=True)
     df.dropna(inplace=True)
     return df
 
-class ActionBTCprice(Action):
+# Query current crypto price (Latest price in CSVs)
+def queryprice(crypto):
+    df = csvtopandas(crypto)
+    current_rate = df.tail(1)['Close'][0]
+    return current_rate
+
+# Query historical crypto price on date
+def querypricedate(crypto, date):
+    df = csvtopandas(crypto)
+    # If date has the format of YYYY-MM-DD
+    if re.match(r'\d{4}-\d{2}-\d{2}',date) != None:
+        if df[df.index == date].empty == False:
+            return df[df.index == date]['Close'][0]
+        else:
+            return None
+    # If date has the string of Today/today/now/current
+    elif date == "Today" or date == "today" or date == "now" or date == "current":
+        date = datetime.datetime.now().date()
+        if df[df.index == date].empty == False:
+            return df[df.index == date]['Close'][0]
+        else:
+            return None
+    # If date has the string of Yesterday/yesterday/ytd/
+    elif date == "Yesterday" or date == "yesterday" or date == "ytd":
+        date = (datetime.datetime.now() - datetime.timedelta(1)).strftime('%Y-%m-%d')
+        if df[df.index == date].empty == False:
+            return df[df.index == date]['Close'][0]
+        else:
+            return None
+
+# Query details of cryptos (Symbol, Description, Features, Ranks, Creators)
+def querycoindetails(crypto):
+    df = pd.read_csv('cryptodata/coindetails.csv',sep=',',index_col=0)
+    coinsymbol = [*df[df.index == crypto].index.values][0]
+    description = [*df[df.index == crypto].Description.values][0]
+    features = [*df[df.index == crypto].Features.values][0]
+    rank = [*df[df.index == crypto]['Rank '].values][0]
+    creator = [*df[df.index == crypto].Creator.values][0]
+    details = {'Coinsymbol':coinsymbol,'Description':description,'Features':features,'Rank':rank,'Creator':creator}
+    return details
+
+# NEW - Compute a daily return column for a specified crypto and Query the date and value of highest, and lowest return
+def dailyreturn(df):
+    df['Daily Return'] = ((df.Close/df.Close.shift(1))-1)*100
+    dfhigh = df[df['Daily Return'] == df['Daily Return'].max()]
+    dflow = df[df['Daily Return'] == df['Daily Return'].min()]
+    return {'Highest Return':{'Date':str(*dfhigh[dfhigh['Daily Return'] == dfhigh['Daily Return'].max()].index.values),
+                              'Value': [*dfhigh['Daily Return'].values][0]},
+            'Lowest Return':{'Date':str(*dflow[dflow['Daily Return'] == dflow['Daily Return'].min()].index.values),
+                              'Value': [*dflow['Daily Return'].values][0]}               
+            }
+
+class ActionQueryPrice(Action):
 
     def name(self) -> Text:
-         return "action_bitcoin_price"
+         return "action_query_price"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text,Any]) -> List[Dict[Text,Any]]:
-         entity_value = tracker.latest_message['entities'][0]['value']
-         df = pandasclean(entity_value)
-         current_price = df.tail(1)['Close'][0]
-         dispatcher.utter_message("This is the current {} price today.".format(entity_value))
-         dispatcher.utter_message("{}".format(current_price))
+         # Get crypto from respective entity values
+         crypto = tracker.get_slot('crypto')
+         # Query cryto for price
+         data = market_cap_api()
+         price,updated = get_price(data,crypto)
+         dispatcher.utter_message(f'The price of {crypto.upper()} is {price} USD. (Last updated: {updated[:10]} {updated[11:19]})')
          return []
-        # first need to know the entity type, attribute, and entity name we are looking for
-#         entity_type = get_entity_type(tracker)
-#         attribute = get_attribute(tracker)
-#         entity_name = get_entity_name(tracker, entity_type)
-         
-#        if entity_type is None:
-#             dispatcher.utter_template("utter_ask_again", tracker)
-#             return []
-         
-#         else: 
-             #dispatcher.utter_message("Entity Type: {}".format(entity_type) + "Attribute: {}".format(attribute) + "Entity name: {}".format(entity_name), tracker)
- ##            dispatcher.utter_message("hello",tracker)
-#             return []
-#mmjmjhmjh
+
+class ActionQueryPriceDate(Action):
+
+    def name(self) -> Text:
+        return "action_query_price_date"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        # Get crypto, date values from respective slot and entity
+        crypto = tracker.get_slot('crypto')
+        date = [i['value'] for i in tracker.latest_message['entities'] if i['entity'] == 'date'][0]
+        # Query crypto and date for price
+        price = querypricedate(crypto,date)
+        # If No price available on date -> return price not available
+        if price == None:
+            dispatcher.utter_message("Sorry, {}/USD rate on {} is unavailable.".format(crypto,date))
+        else:
+            dispatcher.utter_message("The {}/USD rate on {} is {}.".format(crypto.upper(), date, price))
+        return []
+
+class ActionQueryMarketCap(Action):
+
+    def name(self) -> Text:
+        return "action_query_marketcap"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        #crypto = tracker.latest_message['entities'][0]['value']
+        crypto = tracker.get_slot('crypto')
+        # Query cryto for market cap
+        data = market_cap_api()
+        marketcap,updated = get_marketcap(data,crypto)
+        dispatcher.utter_message(f'The market cap of {crypto.upper()} is {marketcap} USD. (Last updated: {updated[:10]} {updated[11:19]})')
+        return []
+
+class ActionQueryVolume(Action):
+
+    def name(self) -> Text:
+        return "action_query_volume"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        # Query cryto for market cap
+        data = market_cap_api()
+        volume,updated = get_volume(data,crypto)
+        dispatcher.utter_message(f'The 24h volume of {crypto.upper()} is {volume} USD. (Last updated: {updated[:10]} {updated[11:19]})')
+        return []
+
+# NEW - Color Coded Percent Chage
+class ActionQueryPercentChange1h(Action):
+
+    def name(self) -> Text:
+        return "action_query_percent_change_1h"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        # Query cryto for market cap
+        data = market_cap_api()
+        percent_change_1h,updated = get_percentchange1h(data,crypto)
+        # Color Coding Percentage Change
+        if float(percent_change_1h) > 0:
+            percent_change_1h = str(percent_change_1h)
+            dispatcher.utter_message(f'The 1h percent change of {crypto.upper()} is {percent_change_1h}%. (Last updated: {updated[:10]} {updated[11:19]})')
+        else:
+            percent_change_1h = str(percent_change_1h)
+            dispatcher.utter_message(f'The 1h percent change of {crypto.upper()} is {percent_change_1h}%. (Last updated: {updated[:10]} {updated[11:19]})')
+        return []
+
+# NEW - Color Coded Percent Chage
+class ActionQueryPercentChange24h(Action):
+
+    def name(self) -> Text:
+        return "action_query_percent_change_24h"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        # Query cryto for market cap
+        data = market_cap_api()
+        # Color Coding Percentage Change
+        percent_change_24h,updated = get_percentchange24h(data,crypto)
+        if float(percent_change_24h) > 0:
+            percent_change_24h = Fore.GREEN + str(percent_change_24h)
+            dispatcher.utter_message(f'The 24h percent change of {crypto.upper()} is {percent_change_24h}%. (Last updated: {updated[:10]} {updated[11:19]})')
+        else:
+            percent_change_24h = Fore.RED + str(percent_change_24h)
+            dispatcher.utter_message(f'The 24h percent change of {crypto.upper()} is {percent_change_24h}%. (Last updated: {updated[:10]} {updated[11:19]})')
+        return []
+
+class ActionQueryCoinSymbol(Action):
+
+    def name(self) -> Text:
+        return "action_query_coin_symbol"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        coinsymbol = querycoindetails(crypto)['Coinsymbol']
+        dispatcher.utter_message(f'The cryptocurrency ticker for {crypto} is {coinsymbol}.')
+        return []
+
+class ActionQueryDescription(Action):
+
+    def name(self) -> Text:
+        return "action_query_description"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        description = querycoindetails(crypto)['Description']
+        dispatcher.utter_message(f'{description}.')
+        return []
+
+class ActionQueryFeature(Action):
+
+    def name(self) -> Text:
+        return "action_query_feature"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        features = querycoindetails(crypto)['Features']
+        dispatcher.utter_message(f'The features for {crypto} are {features}.')
+        return []
+
+class ActionQueryRank(Action):
+
+    def name(self) -> Text:
+        return "action_query_rank"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        rank = querycoindetails(crypto)['Rank']
+        dispatcher.utter_message(f'The rank for {crypto} is {rank}.')
+        return []
+
+class ActionQueryCreator(Action):
+
+    def name(self) -> Text:
+        return "action_query_creator"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        crypto = tracker.get_slot('crypto')
+        creator = querycoindetails(crypto)['Creator']
+        dispatcher.utter_message(f'The creator for {crypto} is {creator}.')
+        return []
+
+# NEW CLASS ACTIONS 
+
+class ActionCryptoHighestTradeVolume(Action):
+
+    def name(self) -> Text:
+        return "action_crypto_highest_trade_volume"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+            data = market_cap_api()
+            tradevolume = cryptotradingvolume(data)
+            highesttradevolumecrypto = max(tradevolume)
+            dispatcher.utter_message(f'{highesttradevolumecrypto} has the highest trading volume with {tradevolume[highesttradevolumecrypto]}USD.')
+            return []
+
+class ActionCryptoLowestTradeVolume(Action):
+
+    def name(self) -> Text:
+        return "action_crypto_lowest_trade_volume"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+            data = market_cap_api()
+            tradevolume = cryptotradingvolume(data)
+            lowesttradevolumecrypto = min(tradevolume)
+            dispatcher.utter_message(f'{lowesttradevolumecrypto} has the lowest trading volume with {tradevolume[lowesttradevolumecrypto]} USD.')
+            return []
+
+class ActionCryptoHighestProfit(Action):
+
+    def name(self) -> Text:
+        return "action_crypto_highest_profit"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+            crypto = tracker.get_slot('crypto')
+            df = csvtopandas(crypto)
+            date = dailyreturn(df)['Highest Return']['Date']
+            value = dailyreturn(df)['Highest Return']['Value']
+            print(value)
+            print(date)
+            dispatcher.utter_message(f'{crypto.upper()} had the highest return of {value}% on {date}.')
+            return []
+
+class ActionCryptoLowestProfit(Action):
+
+    def name(self) -> Text:
+        return "action_crypto_lowest_profit"
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+            crypto = tracker.get_slot('crypto')
+            df = csvtopandas(crypto)
+            date = dailyreturn(df)['Lowest Return']['Date']
+            value = dailyreturn(df)['Lowest Return']['Value']
+            dispatcher.utter_message(f'{crypto.upper()} had the lowest return of {value}% on {date}.')
+            return []
+
+class CryptoForm(FormAction):
+    def name(self) -> Text:
+        return "crypto_form"
+    @staticmethod
+    def required_slots(tracker: Tracker) -> List[Text]:
+        return ["crypto"]
+    # def slot_mappings(self) -> Dict[Text, Any]:
+    #     return {"crypto": self.from_entity(entity="crypto", intent=["inform","price"])}
+    def submit(self,
+               dispatcher: CollectingDispatcher,
+               tracker: Tracker,
+               domain: Dict[Text, Any]
+               ) :
+        crypto = tracker.get_slot('crypto')
+        enquiry = tracker.get_slot('enquiry')
+        dispatcher.utter_message("I'm on it!")
+        actions_dict = {'price': "action_query_price",
+                        'market_cap': 'action_query_marketcap'}
+        return[]
+        #return [FollowupAction(actions_dict.get(enquiry))]

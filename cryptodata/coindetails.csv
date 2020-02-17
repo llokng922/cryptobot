@@ -1,0 +1,23 @@
+Coin Symbol,Description,Features,Rank ,Creator
+btc,"Bitcoin (BTC) is a consensus network that enables a new payment system and a completely digital currency. Powered by its users, it is a peer to peer payment network that requires no central authority to operate. On October 31st, 2008, an individual or group of individuals operating under the pseudonym ""Satoshi Nakamoto"" published the Bitcoin Whitepaper and described it as: ""a purely peer-to-peer version of electronic cash, which would allow online payments to be sent directly from one party to another without going through a financial institution.""","1.  Decentralization 
+2. Limited supply
+3. Pseudonymity
+4. Immutability
+5. Divisibility",1st,Satoshi Nakamoto 
+eth,"Ethereum (ETH) is a smart contract platform that enables developers to build decentralized applications (dapps) conceptualized by Vitalik Buterin in 2013. ETH is the native currency for the Ethereum platform and also works as the transaction fees to miners on the Ethereum network.
+Ethereum is the pioneer for blockchain based smart contracts. When running on the blockchain a smart contract becomes like a self-operating computer program that automatically executes when specific conditions are met. On the blockchain, smart contracts allow for code to be run exactly as programmed without any possibility of downtime, censorship, fraud or third-party interference. It can facilitate the exchange of money, content, property, shares, or anything of value. The Ethereum network went live on July 30th, 2015 with 72 million Ethereum premined.","1. Smart Contract
+2. For  decentralized applications
+3. Run applications based on a blockchain
+4. May contain executable code.        5. Automatic: programs can run safely ",2nd,Vitalik Buterin
+xrp,"XRP is an independent digital asset that is native to the XRP Ledger. With governance and fast transaction confirmations, XRP is said to be the most efficient settlement option for financial institutions and liquidity providers seeking global reach, accessibility, and fast settlement finality for interbank flows.
+
+According to Ripple, those who use the digital asset XRP to source liquidity can reportedly do so in seconds. The team at Ripple hopes to enable the world to move value like it already moves information on the web today.","1.  Quicker transcation time
+2.  Fast transcation time
+3. Designed for financial institutions and payment providers
+4. For more reliable cross-border payments",3rd,"Chris Larsen
+Jed McCaleb"
+bch,"Bitcoin Cash (BCH) is hard fork (a community-activated update to the protocol or code) of Bitcoin that took effect on August 1st, 2017 that increased the block size to 8MB, to help the scale the underlying technology of Bitcoin.Nov 16th 2018: BCH was hard forked again and split into Bitcoin SV and Bitcoin ABC. Bitcoin ABC became the dominant chain and took over the BCH ticker as it had more hashpower and majority of the nodes in the network.","1. Bigger block size than bitcoin
+2. Easier scaling than bitcoin
+3. Same supply bitcoin
+4. Fair Distribution
+5. Low Fees",4th,Roger Ver 
