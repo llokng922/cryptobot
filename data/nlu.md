@@ -1,7 +1,32 @@
 <!-- Task Oriented: -->
+## intent: reset_slots
+- please reset all slots.
+- RESET
+- reset
+- reset all slots
+- reset slots
+- reset them slots.
+
+## intent: price_trend
+- plot me a chart of [bitcoin](crypto).
+- can I have the price trend of [eth](crypto)?
+- [Bitcoin cash](crypto) price Trend please
+- A graph of price of [Ripple](crypto)
+- [ethereum](crypto) price trend.
+- [bitcoin](crypto) graph
+- graph me [xrp](crypto)
+- price plot of [bch](crypto)!
+
+<!-- Bot Intro -->
+## intent: bot_function
+- What can you do?
+- How can you help?
+- What's your function?
+- What are the options?
+- Please help me
+- Instructions please
 
 <!-- Specifying Crypto: -->
-
 ## intent: request_crypto
 - Can you please lookup [ripple](crypto)?
 - I would like to know more about [BTC](crypto)?
@@ -16,7 +41,6 @@
 - I like information on [Bitcoin Cash](crypto)
 
 <!-- Crypto Prices: -->
-
 ## intent: crypto_price
 - Tell [Bitcoin Cash](crypto) current price 
 - what is the price of the [eth](crypto)?
@@ -35,6 +59,7 @@
 - How much does each [ripple](crypto) cost?
 - [Ethereum](crypto) price thanks
 - [bitcoin cash](crypto)'s current price
+- Live Quote of [Bitcoin](crypto)
 - [Ethereum](crypto) price please
 - Let me know [bitcoin](crypto) the cost
 - How much does each [ripple](crypto) cost?
@@ -311,6 +336,7 @@ Find me the marketcap of [eth](crypto)
 - Lemme know about [btc](crypto)
 - [ETHEREUM](crypto) introduction
 - Introduce [ripple](crypto)
+- What's [Ripple](crypto)
 - describe [Bch](crypto)
 - How does [XRP](crypto) work?
 - Tell me about [Bitcoin cash](crypto)

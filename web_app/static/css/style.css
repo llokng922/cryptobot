@@ -2,6 +2,14 @@ body {
 	font-family: 'Raleway', sans-serif;
 }
 
+.navbar {
+	background-color:rgb(49, 106, 139)!important;
+}
+
+h1 {
+	color: rgb(49, 106, 139)!important;
+	font-size: 50px !important;
+}
 
 /* ============= css related to chats =============== */
 
@@ -19,7 +27,7 @@ body {
 
 .chat_header {
 	height: 60px;
-	background: rgb(68, 61, 177);
+	background: rgb(49, 106, 139);
 	border-radius: 10px 10px 0px 0px;
 	padding: 5px;
 	font-size: 20px;
@@ -34,7 +42,7 @@ body {
 
 .chats {
 	/* display: none; */
-	height: 385px;
+	height: 600px;
 	padding: 2px;
 	border-radius: 1px;
 	overflow-y: scroll;
@@ -57,8 +65,8 @@ div.chats::-webkit-scrollbar {
 
 .botAvatar {
 	border-radius: 50%;
-	width: 1.5em;
-	height: 1.5em;
+	width: 2em;
+	height: 2em;
 	float: left;
 	margin-left: 5px;
 	/* border: 2px solid  #2c53af ; */
@@ -104,7 +112,7 @@ textarea-webkit-scrollbar {
 	padding: 10px;
 	float: right;
 	margin-right: 0.5em;
-	background: #443db1;
+	background: rgb(49, 106, 139);
 	color: white;
 	margin-bottom: 0.15em;
 	font-size: 13px;
@@ -118,8 +126,8 @@ textarea-webkit-scrollbar {
 	animation: animateElement linear 0.3s;
 	animation-iteration-count: 1;
 	border-radius: 50%;
-	width: 1.5em;
-	height: 1.5em;
+	width: 2em;
+	height: 2em;
 	float: right;
 	margin-right: 5px;
 	/* border: 2px solid  #2c53af ; */
@@ -156,7 +164,7 @@ textarea-webkit-scrollbar {
 	padding: 5px;
 	font-size: 20px;
 	cursor: pointer;
-	color: #2b2bab;
+	color: #316a8b;
 }
 
 .imgProfile {
@@ -196,7 +204,7 @@ textarea-webkit-scrollbar {
 
 .dropdown-content li>a,
 .dropdown-content li>span {
-	color: #443db1;
+	color: #316a8b;
 }
 
 @keyframes animateElement {
@@ -392,12 +400,12 @@ div.content_data::-webkit-scrollbar {
 	padding: 5px;
 	width: 80%;
 	border-radius: 10px;
-	background: #ffffff;
-	box-shadow: 2px 5px 5px 1px #dbdade;
+	/* background: #ffffff; */
+	/* box-shadow: 2px 5px 5px 1px #dbdade; */
 }
 
 .menuTitle {
-	padding: 5px;
+	padding: 3px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -408,8 +416,8 @@ div.content_data::-webkit-scrollbar {
 
 .menuChips {
 	display: block;
-	background: #2c53af;
-	color: #fff;
+	background: #352d2d17;
+	color: #rgb(49, 106, 139);
 	text-align: center;
 	padding: 5px;
 	margin-bottom: 5px;
@@ -418,173 +426,6 @@ div.content_data::-webkit-scrollbar {
 	font-size: 14px;
 	word-wrap: break-word;
 }
-
-
-/* cards carousels */
-
-.cards {
-	display: none;
-	position: relative;
-	max-width: 300px;
-}
-
-.cards_scroller {
-	overflow-x: scroll;
-	overflow-y: hidden;
-	display: flex;
-	height: 210px;
-	width: 300px;
-	transition: width 0.5s ease;
-	margin-left: 5px;
-	/* Enable Safari touch scrolling physics which is needed for scroll snap */
-	-webkit-overflow-scrolling: touch;
-}
-
-.cards_scroller img {
-	border-radius: 10px;
-}
-
-.cards div.note {
-	position: absolute;
-	/* vertically align center */
-	top: 50%;
-	transform: translateY(-50%);
-	left: 0;
-	right: 0;
-	background: rgba(0, 0, 0, 0.6);
-	padding: 20px;
-	position: absolute;
-	font-size: 4em;
-	color: white;
-}
-
-.cards .arrow {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	height: 30px;
-	width: 30px;
-	border-radius: 2px;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	z-index: 1;
-}
-
-.cards .arrow.next {
-	display: none;
-	font-size: 2em;
-	color: #ffffff;
-	right: 10px;
-}
-
-.cards .arrow.prev {
-	display: none;
-	font-size: 2em;
-	color: #ffffff;
-	left: 10px;
-}
-
-.cards_scroller::-webkit-scrollbar {
-	width: 0 !important
-}
-
-.cards_scroller>div.carousel_cards {
-	margin: 5px;
-	scroll-snap-align: center;
-	position: relative;
-	scroll-behavior: smooth;
-}
-
-.cards_scroller div.carousel_cards {
-	min-width: 50%;
-	min-height: 70%;
-	background: #b5b5b5;
-	border-radius: 10px;
-}
-
-@-webkit-keyframes fadeInLeft {
-	from {
-		opacity: 0;
-		-webkit-transform: translatex(-10px);
-		-moz-transform: translatex(-10px);
-		-o-transform: translatex(-10px);
-		transform: translatex(-10px);
-	}
-	to {
-		opacity: 1;
-		-webkit-transform: translatex(0);
-		-moz-transform: translatex(0);
-		-o-transform: translatex(0);
-		transform: translatex(0);
-	}
-}
-
-.in-left {
-	-webkit-animation-name: fadeInLeft;
-	-moz-animation-name: fadeInLeft;
-	-o-animation-name: fadeInLeft;
-	animation-name: fadeInLeft;
-	-webkit-animation-fill-mode: both;
-	-moz-animation-fill-mode: both;
-	-o-animation-fill-mode: both;
-	animation-fill-mode: both;
-	-webkit-animation-duration: 0.8s;
-	-moz-animation-duration: 0.8s;
-	-o-animation-duration: 0.8s;
-	animation-duration: 0.8s;
-	-webkit-animation-delay: 0.8s;
-	-moz-animation-delay: 0.8s;
-	-o-animation-duration: 0.8s;
-	animation-delay: 0.8s;
-}
-
-
-/* css for cards within the cards carousels */
-
-.cardBackgroundImage {
-	width: 100%;
-	border-radius: 5px;
-	height: 100%;
-	position: absolute;
-	object-fit: cover;
-}
-
-.cardFooter {
-	background: rgba(56, 53, 60, 0.86);
-	border-radius: 0px 0px 5px 5px;
-	position: absolute;
-	z-index: 3;
-	color: white;
-	bottom: 0;
-	width: 100%;
-	height: 30%;
-	word-wrap: break-word;
-	padding: 1px;
-}
-
-.cardTitle {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	width: 90%;
-	height: 40%;
-	display: inline-block;
-	margin-bottom: 1px;
-	font-size: 15px;
-	/* font-weight: 600; */
-	padding: 5px;
-	/* color: #2c53af; */
-	color: #ffffff;
-	cursor: pointer;
-}
-
-.cardDescription {
-	padding: 5px;
-	font-size: 13px;
-	color: white;
-	line-height: 15px;
-}
-
 
 /* css for quick replies */
 
@@ -647,8 +488,8 @@ div.content_data::-webkit-scrollbar {
 .chart-container {
 	position: relative;
 	margin: auto;
-	height: 25vh;
-	width: 20vw;
+	height: 20vh;
+	width: 22vw;
 	border-radius: 10px 10px 10px 10px;
 	margin-left: 5%;
 	background: white;
@@ -703,7 +544,7 @@ ul.collapsible>li:last-child .collapsible-body {
 	float: left;
 	margin-top: 5px;
 	background: white;
-	color: #2c53af;
+	color: rgb(49, 106, 139);
 	box-shadow: 2px 3px 9px 0px #9a82847a;
 	margin-left: 0.5em;
 	padding: 15px;
@@ -717,7 +558,7 @@ ul.collapsible>li:last-child .collapsible-body {
 .botTyping>div {
 	width: 10px;
 	height: 10px;
-	background-color: #2c53af;
+	background-color: rgb(49, 106, 139);
 	border-radius: 100%;
 	display: inline-block;
 	-webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;

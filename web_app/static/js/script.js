@@ -73,7 +73,7 @@ $(".usrInput").on("keyup keypress", function (e) {
 			e.preventDefault();
 			return false;
 		} else {
-			//destroy the existing chart, if yu are not using charts, then comment the below lines
+			//destroy the existing chart, if you are not using charts, then comment the below lines
 			$('.collapsible').remove();
 			if (typeof chatChart !== 'undefined') { chatChart.destroy(); }
 
@@ -223,21 +223,6 @@ function setBotResponse(response) {
 						return;
 					}
 
-					//check if the custom payload type is "location"
-					if (response[i].custom.payload == "location") {
-						$("#userInput").prop('disabled', true);
-						getLocation();
-						scrollToBottomOfResults();
-						return;
-					}
-
-					//check if the custom payload type is "cardsCarousel"
-					if (response[i].custom.payload == "cardsCarousel") {
-						restaurantsData = (response[i].custom.data)
-						showCardsCarousel(restaurantsData);
-						return;
-					}
-
 					//check if the custom payload type is "chart"
 					if (response[i].custom.payload == "chart") {
 
@@ -328,65 +313,6 @@ $("#close").click(function () {
 	scrollToBottomOfResults();
 });
 
-//====================================== Cards Carousel =========================================
-
-function showCardsCarousel(cardsToAdd) {
-	var cards = createCardsCarousel(cardsToAdd);
-
-	$(cards).appendTo(".chats").show();
-
-
-	if (cardsToAdd.length <= 2) {
-		$(".cards_scroller>div.carousel_cards:nth-of-type(" + i + ")").fadeIn(3000);
-	}
-	else {
-		for (var i = 0; i < cardsToAdd.length; i++) {
-			$(".cards_scroller>div.carousel_cards:nth-of-type(" + i + ")").fadeIn(3000);
-		}
-		$(".cards .arrow.prev").fadeIn("3000");
-		$(".cards .arrow.next").fadeIn("3000");
-	}
-
-
-	scrollToBottomOfResults();
-
-	const card = document.querySelector("#paginated_cards");
-	const card_scroller = card.querySelector(".cards_scroller");
-	var card_item_size = 225;
-
-	card.querySelector(".arrow.next").addEventListener("click", scrollToNextPage);
-	card.querySelector(".arrow.prev").addEventListener("click", scrollToPrevPage);
-
-
-	// For paginated scrolling, simply scroll the card one item in the given
-	// direction and let css scroll snaping handle the specific alignment.
-	function scrollToNextPage() {
-		card_scroller.scrollBy(card_item_size, 0);
-	}
-	function scrollToPrevPage() {
-		card_scroller.scrollBy(-card_item_size, 0);
-	}
-
-}
-
-function createCardsCarousel(cardsData) {
-
-	var cards = "";
-
-	for (i = 0; i < cardsData.length; i++) {
-		title = cardsData[i].name;
-		ratings = Math.round((cardsData[i].ratings / 5) * 100) + "%";
-		data = cardsData[i];
-		item = '<div class="carousel_cards in-left">' + '<img class="cardBackgroundImage" src="' + cardsData[i].image + '"><div class="cardFooter">' + '<span class="cardTitle" title="' + title + '">' + title + "</span> " + '<div class="cardDescription">' + '<div class="stars-outer">' + '<div class="stars-inner" style="width:' + ratings + '" ></div>' + "</div>" + "</div>" + "</div>" + "</div>";
-
-		cards += item;
-	}
-
-	var cardContents = '<div id="paginated_cards" class="cards"> <div class="cards_scroller">' + cards + '  <span class="arrow prev fa fa-chevron-circle-left "></span> <span class="arrow next fa fa-chevron-circle-right" ></span> </div> </div>';
-
-	return cardContents;
-}
-
 //====================================== Quick Replies ==================================================
 
 function showQuickReplies(quickRepliesData) {
@@ -440,52 +366,6 @@ $(document).on("click", ".quickReplies .chip", function () {
 	$(".quickReplies").remove();
 
 });
-
-//====================================== Get User Location ==================================================
-function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(getUserPosition, handleLocationAccessError);
-	} else {
-		response = "Geolocation is not supported by this browser.";
-	}
-}
-
-function getUserPosition(position) {
-	response = "Latitude: " + position.coords.latitude + " Longitude: " + position.coords.longitude;
-	console.log("location: ", response);
-
-	//here you add the intent which you want to trigger 
-	response = '/inform{"latitude":' + position.coords.latitude + ',"longitude":' + position.coords.longitude + '}';
-	$("#userInput").prop('disabled', false);
-	send(response);
-	showBotTyping();
-}
-
-function handleLocationAccessError(error) {
-
-	switch (error.code) {
-		case error.PERMISSION_DENIED:
-			console.log("User denied the request for Geolocation.")
-			break;
-		case error.POSITION_UNAVAILABLE:
-			console.log("Location information is unavailable.")
-			break;
-		case error.TIMEOUT:
-			console.log("The request to get user location timed out.")
-			break;
-		case error.UNKNOWN_ERROR:
-			console.log("An unknown error occurred.")
-			break;
-	}
-
-	response = '/inform{"user_location":"deny"}';
-	send(response);
-	showBotTyping();
-	$(".usrInput").val("");
-	$("#userInput").prop('disabled', false);
-
-
-}
 
 //======================================bot typing animation ======================================
 function showBotTyping() {
@@ -566,8 +446,8 @@ function createChart(title, labels, backgroundColor, chartsData, chartType, disp
 			display: displayLegend,
 			position: "right",
 			labels: {
-				boxWidth: 5,
-				fontSize: 10
+				boxWidth: 4,
+				fontSize: 8
 			}
 		}
 	}

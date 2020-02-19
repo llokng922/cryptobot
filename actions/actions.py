@@ -13,10 +13,10 @@ from rasa.core.events import FollowupAction
 import pandas as pd 
 import datetime
 import re
-from colorama import Fore
 
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+from rasa_sdk.events import AllSlotsReset
 import json
 
 # Call Coin Market API
@@ -86,12 +86,6 @@ def csvtopandas(crypto):
     df.dropna(inplace=True)
     return df
 
-# Query current crypto price (Latest price in CSVs)
-def queryprice(crypto):
-    df = csvtopandas(crypto)
-    current_rate = df.tail(1)['Close'][0]
-    return current_rate
-
 # Query historical crypto price on date
 def querypricedate(crypto, date):
     df = csvtopandas(crypto)
@@ -149,7 +143,7 @@ class ActionQueryPrice(Action):
          # Query cryto for price
          data = market_cap_api()
          price,updated = get_price(data,crypto)
-         dispatcher.utter_message(f'The price of {crypto.upper()} is {price} USD. (Last updated: {updated[:10]} {updated[11:19]})')
+         dispatcher.utter_message(f'The price of {crypto.upper()} is {round(price,2)} USD. (@ {updated[:10]} {updated[11:19]})')
          return []
 
 class ActionQueryPriceDate(Action):
@@ -256,7 +250,11 @@ class ActionQueryDescription(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
         crypto = tracker.get_slot('crypto')
         description = querycoindetails(crypto)['Description']
+                    
         dispatcher.utter_message(f'{description}.')
+        dispatcher.utter_message(template='utter_logo_'+crypto)
+        #dispatcher.utter_custom_t({'image':logo_dict[crypto]})
+        #dispatcher.utter_message(logo_dict[crypto])
         return []
 
 class ActionQueryFeature(Action):
@@ -343,7 +341,7 @@ class ActionCryptoLowestProfit(Action):
             df = csvtopandas(crypto)
             date = dailyreturn(df)['Lowest Return']['Date']
             value = dailyreturn(df)['Lowest Return']['Value']
-            dispatcher.utter_message(f'{crypto.upper()} had the lowest return of {value}% on {date}.')
+            dispatcher.utter_message(f'{crypto.upper()} had the lowest return of {round(value,1)}% on {date}.')
             return []
 
 class CryptoForm(FormAction):
@@ -360,9 +358,69 @@ class CryptoForm(FormAction):
                domain: Dict[Text, Any]
                ) :
         crypto = tracker.get_slot('crypto')
-        enquiry = tracker.get_slot('enquiry')
-        dispatcher.utter_message("I'm on it!")
-        actions_dict = {'price': "action_query_price",
-                        'market_cap': 'action_query_marketcap'}
+        dispatcher.utter_message("I'm on it boss!")
+
         return[]
         #return [FollowupAction(actions_dict.get(enquiry))]
+
+
+class ActionResetSlots(Action):
+    ''' To Reset all the slots during the conversation '''
+    def name(self) -> Text:
+        return "action_reset_slots"
+
+    def run(self, dispatcher: CollectingDispatcher,
+             tracker: Tracker,
+             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+         dispatcher.utter_message("There you go boss, ALL SLOTS RESET!")
+
+         return [AllSlotsReset()]
+
+class ActionBotFunction(Action):
+
+    def name(self) -> Text:
+        return "action_bot_function"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        # Fetch the data and store in the format used by buttons.
+        #buttons = [{"title": "Live Quote of Bitcoin", "payload": "/crypto_price{'crypto':'btc'}"}, 
+                    #{"title": "What's Ripple?", "payload": "/crypto_description{'crypto':'xrp'}"}]
+        #dispatcher.utter_button_message('To begin with, here are some suggested enquiries:', buttons)
+        return []
+
+
+class ActionPriceTrend(Action):
+
+    def name(self) -> Text:
+        return "action_price_trend"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        
+        crypto = tracker.get_slot('crypto')
+        df = pd.read_csv('cryptodata/'+ crypto +'usd.csv',usecols=[1,2,3,4,5])
+        df = df[['Date','Close']].dropna()
+        df = df[::-1]
+
+        n = df.shape[0]
+
+        data = []
+        for i in range(n):
+            d = {}
+            d['x'] = df.Date.values[i]
+            d['y'] = df.Close.values[i]
+            data.append(d)
+        
+        chart_data = {
+            "payload":"chart",
+            "data":{
+                "title": "Price Trend of " + crypto,
+                "labels": df.Date.values,
+                "backgroundColor": ["#36a2eb"],
+                "chartsData":data,
+                "chartType":"line",
+                "displayLegend":"false"
+            }
+        }
+        dispatcher.utter_custom_json(chart_data)
+        return []
