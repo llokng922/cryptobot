@@ -27,6 +27,8 @@ intents:
   - out_of_scope
   - affirm
   - bye
+  - reset_slots
+  - price_trend
 
 entities:
   - crypto
@@ -64,13 +66,20 @@ actions:
  - utter_greet
  - utter_canthelp
  - utter_bye
-
+ - action_reset_slots
+ - action_bot_function
+ - action_price_trend
 
 responses:
-  utter_bot_intro:
-  - text: "If you are new to cryptocurrency, I can help you get started."
   utter_bot_function:
-  - text: "We could provide info such as historical price, current price, technology of the main cryptocurrencies"
+  - text: "I can provide info such as market quote, historical price, technology of the 4 main cryptocurrencies: Bitcoin, Ripple, Ethereum, Bitcoin Cash."
+    buttons:
+    - title: "Give me the current price of Bitcoin"
+      payload: "Quote me Bitcoin"
+    - title: "What's Ripple?"
+      payload: "What is Ripple?"
+    - title: "A ETH Price Trend please"
+      payload: "A ETH Price Trend please"
   utter_builder:
   - text: "I was created by Anthony, Lok, Ethan and James"
   utter_thank:
@@ -78,7 +87,7 @@ responses:
   utter_react_positive:
   - text: "Good for you"
   utter_greet:
-  - text: "Hello! I am CryptoBot :) How may I help you today?"
+  - text: "Hello! I'm CryptoBot :) How may I help you today?"
   utter_canthelp:
   - text: "Sorry I am unable to help you."
   utter_out_of_scope:
@@ -89,6 +98,18 @@ responses:
   - text: "Goodbye! It was nice talking to you."
   utter_ask_crypto:
   - text: "Which cryptocurrency are we referring?"
+  utter_logo_btc:
+  - text: "Logo: "
+    image: 'https://i.imgur.com/Cb3ub5C.png'
+  utter_logo_xrp:
+  - text: "Logo: "
+    image: 'https://i.imgur.com/eKau7iL.png'
+  utter_logo_eth:
+  - text: "Logo: "
+    image: 'https://i.imgur.com/mVMgn2R.png'
+  utter_logo_bch:
+  - text: "Logo: "
+    image: 'https://i.imgur.com/YegPa50.jpg'
 
 session_config:
   session_expiration_time: 60
